@@ -153,9 +153,9 @@ fs = 1000
 n = np.arange(fs)
 t = n / fs
 
-x1 = np.cos(2 * np.pi * 5 * t)
-x2 = 2 * np.cos(2 * np.pi * 2 * t)
-x3 = 0.5 * np.cos(2 * np.pi * 30 * t)
+x1 = np.sin(2 * np.pi * 5 * t)
+x2 = 2 * np.sin(2 * np.pi * 2 * t)
+x3 = 0.5 * np.sin(2 * np.pi * 30 * t)
 
 x = x1 + x2 + x3
 
@@ -177,19 +177,6 @@ for k in range(N):
         X[k] += x[n] * np.exp(-2j * np.pi * k * n / N)
 
 freqs = np.arange(N) * fs / N
-
-F = np.zeros((N, N), dtype=complex)
-
-for k in range(N):
-    for n in range(N):
-        F[k, n] = np.exp(-2j * np.pi * k * n / N)
-
-X_mat = F @ x
-
-eps = 1e-8
-diff = np.abs(X - X_mat)
-
-print("DFT", np.all(diff < eps))
 
 plt.figure(figsize=(12, 4))
 plt.stem(freqs[:101], np.abs(X[:101]))
